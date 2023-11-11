@@ -19,7 +19,9 @@ export default async function handler(
         const response = await openai.models.list();
         const models = response.data; // Adjust based on the actual response structure
 
-        const modelOptions: Option[] = models.map((model: any) => ({
+        const gpt35Models = models.filter((model: any) => model.id.includes('gpt-3.5'));
+        
+        const modelOptions: Option[] = gpt35Models.map((model: any) => ({
             value: model.id, // Assuming 'id' is the correct field
             label: model.id,
         }));
