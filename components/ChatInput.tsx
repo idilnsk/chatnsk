@@ -6,6 +6,8 @@ import { serverTimestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast} from "react-hot-toast";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import ModelSelection from "./ModelSelection";
+import useSWR from "swr";
 
 
 type Props = {
@@ -15,10 +17,9 @@ function ChatInput({ chatId }: Props) {
   const [prompt, setPrompt] = useState("");
   const { data: session } = useSession();
 
-  //TODO use sWR to get model
-
-  const model="gpt-3.5-turbo";
-  
+  const {data:model} =useSWR('model', {
+    fallbackData:"gpt-3.5-turbo"
+})
 
   const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,7 +82,9 @@ function ChatInput({ chatId }: Props) {
           <PaperAirplaneIcon className="h-4 w-4 -rotate-45" />
         </button>
       </form>
-      <div>{/*ModalSelection */}</div>
+      <div className="md:hidden">
+        <ModelSelection/>
+      </div>
     </div>
   );
 }
