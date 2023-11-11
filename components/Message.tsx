@@ -1,7 +1,7 @@
     import {DocumentData} from "firebase/firestore";
 
     type Props={
-        messsage: DocumentData
+        message: DocumentData
     }
 
     function Message({message}: Props) {

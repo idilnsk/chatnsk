@@ -7,7 +7,8 @@ type Option = {
 };
 
 type Data = {
-    modelOptions: Option[];
+    modelOptions?: Option[];
+    error?: string; 
 };
 
 export default async function handler(
@@ -26,6 +27,6 @@ export default async function handler(
         res.status(200).json({ modelOptions });
     } catch (error) {
         console.error("Error fetching models:", error);
-        res.status(500).json({ error: `OpenAI Error: ${error.message}` });
+        res.status(500).json({ error: 'An unkown error occured' });
     }
 }
